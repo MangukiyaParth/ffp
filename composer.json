@@ -1,0 +1,6 @@
+{
+    "require": {
+        "dompdf/dompdf": "dev-master",
+        "aws/aws-sdk-php": "^3.273"
+    }
+}

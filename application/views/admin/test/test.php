@@ -1,0 +1,1 @@
+<img src="<?php echo base_url('media/test/test_thumb.jpg'); ?>" width="40%" />
