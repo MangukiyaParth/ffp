@@ -71,11 +71,14 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Date</th>
-                                        <th>Monthly</th>
-                                        <th>3 Monthly</th>
-                                        <th>6 Monthly</th>
-                                        <th>Yearly</th>
-                                        <th>Exclusive</th>
+                                        <th>Business Plan- 1 year (Best Value)</th>
+                                        <th>1 Month Plan</th>
+                                        <th>Business Plan - 6 Month</th>
+                                        <th>12 Month Plan</th>
+                                        <th>Advance Plan - 6 Month</th>
+                                        <th>Exclusive Plan</th>
+                                        <th>Navratri Festival</th>
+                                        <th>Premium Plan (Most Popular - Recommended)</th>
                                         <th>Trail Total</th>
                                         <th>Refund</th>
                                         <th>Refund Amount</th>

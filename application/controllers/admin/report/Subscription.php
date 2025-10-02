@@ -105,11 +105,14 @@ class Subscription extends CI_Controller
 
         $groupedData = array_group_by($queryData, 'pdate');
 
-        $resMonthlyTotal = 0;
-        $resYearlyTotal = 0;
-        $exclusiveTotal = 0;
-        $res3MonthTotal = 0;
-        $res6MonthTotal = 0;
+        $p1_total = 0;
+        $p2_total = 0;
+        $p3_total = 0;
+        $p4_total = 0;
+        $p5_total = 0;
+        $p6_total = 0;
+        $p7_total = 0;
+        $p8_total = 0;
         $resTrailTotal = 0;
         $resTotalPaid = 0;
         $resTotalAmount = 0;
@@ -120,11 +123,14 @@ class Subscription extends CI_Controller
             $i++;
 
             $loopArray = array(
-                'monthly_total' => 0,
-                'monthly_3_total' => 0,
-                'monthly_6_total' => 0,
-                'yearly_total' => 0,
-                'exclusive_total' => 0,
+                'p1_total' => 0,
+                'p2_total' => 0,
+                'p3_total' => 0,
+                'p4_total' => 0,
+                'p5_total' => 0,
+                'p6_total' => 0,
+                'p7_total' => 0,
+                'p8_total' => 0,
                 'trail_total' => 0,
                 'totalRefund' => 0,
                 'totalRefundAmount' => 0
@@ -137,21 +143,30 @@ class Subscription extends CI_Controller
             foreach ($gData as $lData) {
 
                 $typeKey = 'trail_total';
-                if ($lData->packageid == '2' && $lData->pstatus != 'Refund') {
-                    $typeKey = 'monthly_total';
-                    $resMonthlyTotal += $lData->total;
-                } elseif ($lData->packageid == '4' && $lData->pstatus != 'Refund') {
-                    $typeKey = 'yearly_total';
-                    $resYearlyTotal += $lData->total;
-                } elseif ($lData->packageid == '6' && $lData->pstatus != 'Refund') {
-                    $typeKey = 'exclusive_total';
-                    $exclusiveTotal += $lData->total;
+                if ($lData->packageid == '1' && $lData->pstatus != 'Refund') {
+                    $typeKey = 'p1_total';
+                    $p1_total += $lData->total;
+                } elseif ($lData->packageid == '2' && $lData->pstatus != 'Refund') {
+                    $typeKey = 'p2_total';
+                    $p2_total += $lData->total;
                 } elseif ($lData->packageid == '3' && $lData->pstatus != 'Refund') {
-                    $typeKey = 'monthly_3_total';
-                    $res3MonthTotal += $lData->total;
+                    $typeKey = 'p3_total';
+                    $p3_total += $lData->total;
+                } elseif ($lData->packageid == '4' && $lData->pstatus != 'Refund') {
+                    $typeKey = 'p4_total';
+                    $p4_total += $lData->total;
                 } elseif ($lData->packageid == '5' && $lData->pstatus != 'Refund') {
-                    $typeKey = 'monthly_6_total';
-                    $res6MonthTotal += $lData->total;
+                    $typeKey = 'p5_total';
+                    $p5_total += $lData->total;
+                } elseif ($lData->packageid == '6' && $lData->pstatus != 'Refund') {
+                    $typeKey = 'p6_total';
+                    $p6_total += $lData->total;
+                } elseif ($lData->packageid == '7' && $lData->pstatus != 'Refund') {
+                    $typeKey = 'p7_total';
+                    $p7_total += $lData->total;
+                } elseif ($lData->packageid == '8' && $lData->pstatus != 'Refund') {
+                    $typeKey = 'p8_total';
+                    $p8_total += $lData->total;
                 } elseif ($lData->pstatus == 'Refund') {
                     $typeKey = 'totalRefund';
                     $totalDayRefundAmount += $lData->pprice;
@@ -183,11 +198,14 @@ class Subscription extends CI_Controller
                 'DT_RowId' => $key,
                 $i,
                 $key,
-                $loopArray['monthly_total'],
-                $loopArray['monthly_3_total'],
-                $loopArray['monthly_6_total'],
-                $loopArray['yearly_total'],
-                $loopArray['exclusive_total'],
+                $loopArray['p1_total'],
+                $loopArray['p2_total'],
+                $loopArray['p3_total'],
+                $loopArray['p4_total'],
+                $loopArray['p5_total'],
+                $loopArray['p6_total'],
+                $loopArray['p7_total'],
+                $loopArray['p8_total'],
                 $loopArray['trail_total'],
                 $loopArray['totalRefund'],
                 "₹ $totalDayRefundAmount",
@@ -205,11 +223,14 @@ class Subscription extends CI_Controller
             'DT_RowId' => 'total',
             '',
             '<strong>Total</strong>',
-            "<strong>$resMonthlyTotal</strong>",
-            "<strong>$res3MonthTotal</strong>",
-            "<strong>$res6MonthTotal</strong>",
-            "<strong>$resYearlyTotal</strong>",
-            "<strong>$exclusiveTotal</strong>",
+            "<strong>$p1_total</strong>",
+            "<strong>$p2_total</strong>",
+            "<strong>$p3_total</strong>",
+            "<strong>$p4_total</strong>",
+            "<strong>$p5_total</strong>",
+            "<strong>$p6_total</strong>",
+            "<strong>$p7_total</strong>",
+            "<strong>$p8_total</strong>",
             "<strong>$resTrailTotal</strong>",
             "<strong>$totalRefund</strong>",
             "<strong>₹ $totalRefundAmount</strong>",
