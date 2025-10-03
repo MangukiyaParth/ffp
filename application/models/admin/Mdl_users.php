@@ -75,6 +75,13 @@ class Mdl_users extends CI_Model
             if($this->input->post('end_date') && $this->input->post('end_date')!=""){
                 $this->db->where('p.pdate <=', $this->input->post('end_date'));
             }
+        }elseif($type==6){
+            if($this->input->post('start_date') && $this->input->post('start_date')!=""){
+                $this->db->where('a.expdate >=', $this->input->post('start_date'));
+            }
+            if($this->input->post('end_date') && $this->input->post('end_date')!=""){
+                $this->db->where('a.expdate <=', $this->input->post('end_date'));
+            }
         }else{
             if($this->input->post('start_date') && $this->input->post('start_date')!=""){
                 $this->db->where('a.created_date >=', $this->input->post('start_date'));
