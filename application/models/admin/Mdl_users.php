@@ -59,7 +59,7 @@ class Mdl_users extends CI_Model
         }
         if($type==6){
            /*  $this->db->where('a.expdate <', ONLY_DATE); */
-            $this->db->where('a.ispaid', 0);
+            $this->db->where('a.ispaid', 1);
             $this->db->where('a.planStatus', 2);
         }
         if($type==8){
