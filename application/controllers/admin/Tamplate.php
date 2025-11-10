@@ -104,6 +104,7 @@ class Tamplate extends CI_Controller
                 '<a class="image-popup-no-margins abc" target="_blank" href="'.$path.$member->path.'"><img class="img-responsive" src="'.$path.$member->path.'"width="100px"></a>', 
                 (file_exists($planImgCheck))?'<a class="image-popup-no-margins abc" target="_blank" href="'.$planPath.'"><img class="img-responsive" src="'.$planPath.'"width="75px"></a>':"-", 
                 '<a class="image-popup-no-margins abc" target="_blank" href="'.$thumbImgUrl.'"><img class="img-responsive" src="'.$thumbImgUrl.'"width="65px"></a>', 
+                ($member->has_mask=='1')?'<a class="image-popup-no-margins abc" target="_blank" href="'.$path.$member->mask.'"><img class="img-responsive" src="'.$path.$member->mask.'"width="65px"></a>':'-', 
                 $member->mtitle, 
                 /* $member->font_size.'-'.$member->font_type,  
                 '<input type="color" value="'.$member->font_color.'" style="margin-top: 5px;"><br>'.$member->font_color,*/
@@ -170,6 +171,12 @@ class Tamplate extends CI_Controller
             $free_paid =  0;
         }
 
+        if (array_key_exists('has_mask', $this->input->post())) {
+            $has_mask = 1;
+        } else {
+            $has_mask =  0;
+        }
+
         $data_insert = array(
             'p_id' => $this->input->post('p_id'),
             'free_paid' => $free_paid,
@@ -181,6 +188,7 @@ class Tamplate extends CI_Controller
             'lable' => $this->input->post('lable'),
             'lablebg' => str_replace(' ', '', $this->input->post('lablebg')),
             'language' => $this->input->post('ln_post'),
+            'has_mask' => $has_mask,
         );
         $this->load->library('upload');
         $files = $_FILES;
@@ -188,12 +196,18 @@ class Tamplate extends CI_Controller
         $config['allowed_types'] = '*';
         $countRenameImg = 0;
         $countImgNotFound = 0;
+        $imgNotFound = "";
         $totalImg = 0;
         if (!empty($_FILES['image']['name'][0])) {
             $cpt = count((array)$_FILES['image']['name']);
             for ($i = 0; $i < $cpt; $i++) {
                 $totalImg++;
                 $filennm = $files['image']['name'][$i];
+
+                $info = pathinfo($filennm); 
+                $main_filename = $info['filename'];
+                $main_extension = $info['extension'];
+
                 $color1 = explode('.',$filennm );
                 if($font_color == ""){
                     $color = explode('-color-',$color1[0] );
@@ -221,6 +235,37 @@ class Tamplate extends CI_Controller
                 $data1 = $this->upload->data();
                 
                 $data_insert['path'] = $data1['file_name'];
+
+
+                /* Add Mask  */
+                if ($has_mask && !empty($files['mask']['name'][$i])) {
+                    // Use the MASK file input here, not "image"
+                    $_FILES['mask']['name']     = $files['mask']['name'][$i];
+                    $_FILES['mask']['type']     = $files['mask']['type'][$i];
+                    $_FILES['mask']['tmp_name'] = $files['mask']['tmp_name'][$i];
+                    $_FILES['mask']['error']    = $files['mask']['error'][$i];
+                    $_FILES['mask']['size']     = $files['mask']['size'][$i];
+
+                    $maininfo               = pathinfo($files['image']['name'][$i]); // original image name
+                    $maskNameBase           = $maininfo['filename'] . '-mask.' . $maininfo['extension']; // photo-mask.jpg
+                    $new_mask_name          = $i . time() . slug_string($maskNameBase);
+                    $config2['upload_path'] = './media/template/';
+                    $config2['allowed_types'] = '*';
+                    $config2['file_name']    = $new_mask_name;
+                    $this->load->library('upload', $config2);
+                    $this->upload->initialize($config2);
+
+                    if ($this->upload->do_upload('mask')) {
+                        $data2 = $this->upload->data();
+                        $data_insert['mask'] = $data2['file_name'];
+                    } else {
+                        // handle error if needed
+                        $data_insert['mask'] = "";
+                    }
+                } else {
+                    $data_insert['mask'] = "";
+                }
+
                 /* thumbnail */
                 $newPath = "media/template/";
                 $filename = $data1['file_name'];
@@ -238,8 +283,8 @@ class Tamplate extends CI_Controller
                     $planTempRename = explode('+',$color1[0]);
                     if(array_key_exists('0',$planTempRename)){
                         if ($planTempRename[0]) {
-                            $oldname = PUBPATH . "media/template/plan/".$slugName.'/'.$planTempRename[0].".jpg";
-                            $newname = PUBPATH . "media/template/plan/".$slugName.'/'.$lastId.".jpg";
+                            $oldname = PUBPATH . "media/template/plan/".$slugName.'/'.$planTempRename[0].".".$main_extension;
+                            $newname = PUBPATH . "media/template/plan/".$slugName.'/'.$lastId.".".$main_extension;
                             if (file_exists($oldname)) {
                                 rename($oldname,$newname);
                                 $countRenameImg++;
@@ -294,10 +339,11 @@ class Tamplate extends CI_Controller
             }
         }
         
-    $data1['totalImg'] = $totalImg;
-    $data1['countImgNotFound'] = $countImgNotFound;
-    $data1['countRenameImg'] = $countRenameImg;
-    echo json_encode($data1);
+        $data1['totalImg'] = $totalImg;
+        $data1['countImgNotFound'] = $countImgNotFound;
+        $data1['imgNotFound'] = $imgNotFound;
+        $data1['countRenameImg'] = $countRenameImg;
+        echo json_encode($data1);
         /* redirect(base_url("admin/tamplate/")); */
     }
 

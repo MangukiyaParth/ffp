@@ -103,11 +103,6 @@ class Category extends CI_Controller
                     $data['noti_banner'] = $image1;
                 }
                 
-                if (isset($_FILES['mask']['name'])) {
-                    $image1 = imageUpload($_FILES['mask']['name'], 'mask', 'category', 'media/category/mask/');
-                    $data['mask'] = $image1;
-                }
-
                 $ret = $this->mdl_category->addCategory($data);
                 if ($ret) {
                     $msg['status'] = 'success';
@@ -151,19 +146,7 @@ class Category extends CI_Controller
                 $image1 = imageUpload($_FILES['noti_banner']['name'], 'noti_banner', 'category', 'media/category/banner/');
                 $data['noti_banner'] = $image1;
             }
-             /* notification mask upload */
-            if (isset($_FILES['mask']['name'])) {
-                
-                if ($resu['mask']) {
-                    $filestring1 = PUBPATH . "media/category/mask/" . $resu['mask'];
-                    if (file_exists($filestring1)) {
-                        unlink($filestring1);
-                    }
-                }
 
-                $image1 = imageUpload($_FILES['mask']['name'], 'mask', 'category', 'media/category/mask/');
-                $data['mask'] = $image1;
-            }
             $ret = $this->mdl_category->editCategoryById($data, $this->input->post('id'));
             if ($ret == 1) {
                 $msg['status'] = 'success';

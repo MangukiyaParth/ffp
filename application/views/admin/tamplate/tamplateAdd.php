@@ -159,6 +159,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="col-md-12" for="ln_post"><strong>Select Language</strong> </label>
@@ -181,6 +182,24 @@
                                                     ?>
                                                 </select>
 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="col-md-12 control-label">Has Mask?</label>
+                                            <div class="col-md-12 switch switch-sm switch-success">
+                                                <input type="checkbox" id="has_mask" name="has_mask" <?php echo ($edit) ? ($edit['has_mask']=='1')? 'checked="checked"' : '' : ""; ?> value="1" onchange="changeMaskflag()" data-plugin-ios-switch />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-5" id="maskDiv">
+                                        <div class="form-group">
+                                            <label class="col-md-12 control-label"> Mask </label>
+                                            <div class="col-md-12">
+                                                <input id="mask" type="file" <?php echo ($edit) ? '' : 'required' ?> class="form-control" name="mask[]" accept="image/*" multiple="multiple">
                                             </div>
                                         </div>
                                     </div>
@@ -305,8 +324,23 @@
     <!-- end: page -->
 </section>
 <script>
+window.addEventListener('load', function() {
+    changeMaskflag();
+});
+
 function myFunction() {
     var color = document.getElementById("favcolor").value;
     $(".font_color").val(color);
+}
+
+function changeMaskflag() {
+    var maskFlag = document.getElementById("has_mask").checked;
+    var mask = document.getElementById("mask");
+    if(maskFlag){
+        mask.disabled = false;
+    }
+    else {
+        mask.disabled = true;
+    }
 }
 </script>

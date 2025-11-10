@@ -2872,6 +2872,10 @@ $(document).ready(function () {
             for (var i = 0; i < file_data.length; i++) {
                 data.append("image[]", file_data[i]);
             }
+            var file_data = $('input[name="mask[]"]')[0].files;
+            for (var i = 0; i < file_data.length; i++) {
+                data.append("mask[]", file_data[i]);
+            }
             $.ajax({
                 type: 'post',
                 url: Admin_url + 'tamplate/isertTamplate/',

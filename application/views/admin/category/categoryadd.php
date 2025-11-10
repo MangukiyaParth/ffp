@@ -132,15 +132,6 @@
                                             <input type="file" name="noti_banner" class="form-control" accept="image/*" />
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <label class="control-label">Category Mask </label>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-image"></i>
-                                            </span>
-                                            <input type="file" name="mask" class="form-control" accept="image/*" />
-                                        </div>
-                                    </div>
 
                                 </div>
                             </div>

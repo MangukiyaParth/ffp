@@ -95,8 +95,7 @@
                                     <th width="5%">Thumb</th>
                                     <th width="20%">Name</th>
                                     <th width="5%">Noti Banner</th>
-                                    <th width="5%">Mask</th>
-                                    <th width="10%">Quote</th>
+                                    <th width="15%">Quote</th>
                                     <th width="10%">Tag</th>
                                     <th width="10%">TagBG</th>
                                     <th width="5%">Status</th>
@@ -135,15 +134,6 @@
                                         <?php if ($key['noti_banner']) { ?>
                                         <a class="image-popup-no-margins" href="<?php echo base_url(); ?>media/category/banner/<?php echo $key['noti_banner']; ?>">
                                             <img class="img-responsive " width="50px" src="<?php echo base_url(); ?>media/category/banner/<?php echo $key['noti_banner']; ?>">
-                                        </a>
-                                        <?php } else { ?>
-                                        -
-                                        <?php } ?>
-                                    </td>
-                                    <td>
-                                        <?php if ($key['mask']) { ?>
-                                        <a class="image-popup-no-margins" href="<?php echo base_url(); ?>media/category/mask/<?php echo $key['mask']; ?>">
-                                            <img class="img-responsive " width="50px" src="<?php echo base_url(); ?>media/category/mask/<?php echo $key['mask']; ?>">
                                         </a>
                                         <?php } else { ?>
                                         -

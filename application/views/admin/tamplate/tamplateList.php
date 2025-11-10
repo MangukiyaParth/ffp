@@ -63,7 +63,8 @@ tbody tr td {
                                     <th width="10%">Post</th>
                                     <th width="10%">Plan</th>
                                     <th width="10%">Thumb</th>
-                                    <th width="15%">Category</th>
+                                    <th width="5%">Mask</th>
+                                    <th width="10%">Category</th>
                                     <!-- <th width="10%">Font</th> 
                                     <th width="10%">Color</th>-->
                                     <th width="10%">Lang</th>
