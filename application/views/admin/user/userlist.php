@@ -103,10 +103,11 @@
                                 <thead>
                                     <tr>
                                         <th width="5%">ID</th>
-                                        <th width="5%">Post</th>
-                                        <th width="5%">Version</th>
+                                        <th width="2%">Post</th>
+                                        <th width="10%">Reg. date</th>
+                                        <th width="3%">Version</th>
                                         <th width="10%">Logo</th>
-                                        <th width="30%">Name</th>
+                                        <th width="25%">Name</th>
                                         <!-- <th width="20%">Email</th> -->
                                         <th width="10%">Mobile</th>
                                         <th width="10%">IsPaid</th>

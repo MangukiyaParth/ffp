@@ -34,6 +34,7 @@ class Users extends CI_Controller
             $i++;
             $expdate = ($member->expdate != "0000-00-00" && $member->expdate != "") ? date('d/m/Y', strtotime($member->expdate)) : '-';
             $updated_date = ($member->updated_date != "0000-00-00 00:00:00") ? date('d/m/Y', strtotime($member->updated_date)) : '';
+            $created_date = ($member->created_date != "0000-00-00 00:00:00") ? date('d/m/Y h:i A', strtotime($member->created_date)) : '';
             /* $status = ($member->status == 1)?'Active':'Inactive'; */
             $path = base_url('media/logo/');
             $editUrl = ADMIN_URL . 'users/editusers/' . $member->id;
@@ -65,9 +66,10 @@ class Users extends CI_Controller
                 'DT_RowId' => $member->id,
                 $member->id,
                 $member->totalUserPost,
+                $created_date,
                 ($member->app_version != "") ? 'V-' . $member->app_version : "",
                 ($member->photo != "") ? '<a class="image-popup-no-margins abc" target="_blank" href="' . $path . $member->photo . '"><img class="img-responsive" src="' . $path . $member->photo . '"width="100px"></a>' : 'No Logo',
-                $member->name,
+                $member->business_name,
                 /* $member->email, */
                 '<a target="_blank" href="https://web.whatsapp.com/send/?phone=%2B91' . $member->mobile . '&text=&app_absent=0">' . $member->mobile . '</a>',
                 /* '<a target="_blank" href="https://api.whatsapp.com/send/?phone=%2B91'.$member->mobile.'&text=Hello Sir, We are from Free Festive Post App Team&app_absent=0">'.$member->mobile.'</a>', */
